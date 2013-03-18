@@ -1,0 +1,14 @@
+# Python compiled source code
+*.pyc
+
+# Virtual environment
+/env_*
+
+# Generated documentation
+/docs/_build/
+
+# SQLite database
+*.sqlite
+
+# Internationalization files
+*.mo

@@ -17,6 +17,8 @@ Icon?
 # Internationalization files
 *.mo
 
+# Media
+l2ranking/media
 
 ###########
 ## Windows

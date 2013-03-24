@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from django.conf import settings
 from django.shortcuts import redirect, get_object_or_404
 from django.views import generic as generic_views
 
@@ -23,6 +24,7 @@ class ServerListView(generic_views.ListView):
     template_name = 'servers.html'
     model = frontend_models.Server
     context_object_name = 'server_list'
+    paginate_by = settings.SERVERS_PER_PAGE
 
     def get_queryset(self):
         return self.model.objects.all().order_by('-vote_count')
@@ -51,7 +53,7 @@ class ServerVoteView(generic_views.FormView):
         try:
             frontend_models.Vote.objects.get(
                 ip_address=self.request.META.get('REMOTE_ADDR'),
-                create_date__gt=datetime.now() - timedelta(minutes=5)
+                create_date__gt=datetime.now() - timedelta(minutes=settings.VOTE_INTERVAL)
             )
         except frontend_models.Vote.DoesNotExist:
             server.add_vote()
@@ -63,16 +65,20 @@ class ServerVoteView(generic_views.FormView):
 
         return redirect('servers')
 
-class CategoryDetailView(generic_views.DetailView):
+class CategoryDetailView(generic_views.ListView):
     template_name = 'category.html'
-    model = frontend_models.Category
-    context_object_name = 'category'
+    model = frontend_models.Server
+    context_object_name = 'server_list'
+    paginate_by = settings.SERVERS_PER_PAGE
+
+    def get_queryset(self):
+        return self.model.objects.filter(category=self.kwargs.get('pk')).order_by('-vote_count')
 
     def get_context_data(self, **kwargs):
         context = super(CategoryDetailView, self).get_context_data(**kwargs)
 
         context.update({
-            'server_list': frontend_models.Server.objects.filter(category=self.get_object().pk).order_by('-vote_count'),
+            'category': get_object_or_404(frontend_models.Category, pk=self.kwargs.get('pk')),
         })
 
         return context

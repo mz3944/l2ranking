@@ -156,7 +156,13 @@ LOGGING = {
     }
 }
 
-# ReCaptcha
+# Vote Interval
+# How many minutes must pass before another vote can be made from same IP address.
+VOTE_INTERVAL = 5
 
+# Servers per Page
+SERVERS_PER_PAGE = 2
+
+# ReCaptcha
 RECAPTCHA_PUBLIC_KEY = '6LeWXsQSAAAAAKN1kBou2ZFBTEOI3qWNU-zp9voF'
 RECAPTCHA_PRIVATE_KEY = '6LeWXsQSAAAAAPwFJO1vJe8Zw0i-ypNxzQ0F0uxl'

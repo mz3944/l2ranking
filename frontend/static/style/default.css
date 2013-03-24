@@ -38,12 +38,24 @@
 
 }
 
+/* Content */
+
 #content {
     float: left;
     width: 600px;
     margin-left: 20px;
     background: yellow;
 }
+
+.pagination ul {
+    list-style: none;
+}
+
+.pagination li {
+    display: inline-block;
+}
+
+/* Sidebar */
 
 #sidebar {
     float: right;

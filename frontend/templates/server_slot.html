@@ -1,0 +1,5 @@
+<div class="server">
+    <img src="{{ MEDIA_URL }}{{ server.banner }}" alt="{{ server.name }}" title="{{ server.name }}" width="468" height="60" />
+    <h3><a href="{% url 'server' server.id %}">{{ server.name }}</a> (Votes: {{ server.vote_count }})</h3>
+    <p>{{ server.description }}</p>
+</div>

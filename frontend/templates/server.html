@@ -1,0 +1,8 @@
+{% extends 'plain.html' %}
+
+{% block title %}{{ server.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ server.name }}</h1>
+    <p>{{ server.description }}</p>
+{% endblock %}

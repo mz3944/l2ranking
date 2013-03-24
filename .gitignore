@@ -1,5 +1,9 @@
-# Python compiled source code
-*.pyc
+# Hidden files
+.*
+
+# OS generated files
+ehthumbs.db
+Icon?
 
 # Virtual environment
 /env_*
@@ -12,3 +16,78 @@
 
 # Internationalization files
 *.mo
+
+
+###########
+## Windows
+###########
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+
+###########
+## PyCharm
+###########
+
+.idea
+.iml
+
+
+##########
+## Django
+##########
+
+*.log
+*.pot
+*.pyc
+local_settings.py
+
+
+###########
+## Python
+###########
+
+*.py[cod]
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+__pycache__
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject

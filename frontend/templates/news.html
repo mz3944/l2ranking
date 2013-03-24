@@ -1,0 +1,16 @@
+{% extends 'plain.html' %}
+
+{% block title %}News{% endblock %}
+
+{% block content %}
+    {% if news_list %}
+        {% for news in news_list %}
+            <div>
+                <h1><a href="{% url 'news_detail' news.id %}">{{ news.title }}</a></h1>
+                <p>{{ news.body }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No news.</p>
+    {% endif %}
+{% endblock %}

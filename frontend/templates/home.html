@@ -1,0 +1,31 @@
+{% extends 'plain.html' %}
+
+{% block content %}
+    <h1>New Servers</h1>
+    {% if new_servers %}
+    {% for server in new_servers %}
+        <h3><a href="{% url 'server' server.id %}">{{ server.name }}</a> ({{ server.create_date }})</h3>
+    {% endfor %}
+    {% else %}
+        <p>No new servers.</p>
+    {% endif %}
+    <h1>Top Servers</h1>
+    {% if top_servers %}
+        {% for server in top_servers %}
+            <h3><a href="{% url 'server' server.id %}">{{ server.name }}</a> ({{ server.vote_count }})</h3>
+        {% endfor %}
+    {% else %}
+        <p>No new servers.</p>
+    {% endif %}
+    <h1>Latest News</h1>
+    {% if latest_news %}
+        {% for news in latest_news %}
+            <h3><a href="{% url 'news_detail' news.id %}">{{ news.title }}</a></h3>
+            {% if forloop.first %}
+                <p>{{ news.body }}</p>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>No news.</p>
+    {% endif %}
+{% endblock %}

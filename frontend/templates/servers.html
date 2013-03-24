@@ -1,0 +1,12 @@
+{% extends 'plain.html' %}
+
+{% block content %}
+    <h1>Server List</h1>
+    {% if server_list %}
+        {% for server in server_list %}
+            {% include 'server_slot.html' %}
+        {% endfor %}
+    {% else %}
+        <p>No servers.</p>
+    {% endif %}
+{% endblock %}

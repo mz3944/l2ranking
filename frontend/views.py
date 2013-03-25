@@ -1,6 +1,7 @@
 import Image, ImageDraw, ImageFont
 
-from datetime import datetime, timedelta
+from datetime import timedelta
+from django.utils import timezone
 from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404
@@ -66,7 +67,7 @@ class ServerVoteView(generic_views.FormView):
         try:
             frontend_models.Vote.objects.get(
                 ip_address=self.request.META.get('REMOTE_ADDR'),
-                create_date__gt=datetime.now() - timedelta(minutes=settings.VOTE_INTERVAL)
+                create_date__gt=timezone.now() - timedelta(minutes=settings.VOTE_INTERVAL)
             )
         except frontend_models.Vote.DoesNotExist:
             server.add_vote()
@@ -123,7 +124,7 @@ def dynamic_banner(request, pk):
     img = Image.new('RGBA', size, '#000000')
     draw = ImageDraw.Draw(img)
     draw.text((10,10), server.name)
-    draw.text((300,10), str(datetime.now()))
+    draw.text((300,10), str(timezone.now()))
     img.save(response, 'png')
 
     return response

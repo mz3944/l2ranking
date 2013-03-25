@@ -7,7 +7,7 @@
         {% for news in news_list %}
             <div>
                 <h1><a href="{% url 'news_detail' news.id %}">{{ news.title }}</a></h1>
-                <p>{{ news.body|linebreaks }}</p>
+                <p>{{ news.excerpt }}</p>
             </div>
         {% endfor %}
     {% else %}

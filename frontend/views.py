@@ -1,7 +1,11 @@
+import Image, ImageDraw, ImageFont
+
 from datetime import datetime, timedelta
 from django.conf import settings
+from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.views import generic as generic_views
+from django.views.decorators.cache import cache_page
 
 from frontend import forms as frontend_forms
 from frontend import models as frontend_models
@@ -98,3 +102,20 @@ class NewsDetailView(generic_views.DetailView):
     template_name = 'news_detail.html'
     model = frontend_models.News
     context_object_name = 'news'
+
+# Dynamic Banner
+
+@cache_page(settings.BANNER_LIFETIME)
+def dynamic_banner(request, pk):
+
+    server = get_object_or_404(frontend_models.Server, pk=pk)
+
+    response = HttpResponse(mimetype="image/png")
+    size = (468, 60)
+    img = Image.new('RGBA', size, '#000000')
+    draw = ImageDraw.Draw(img)
+    draw.text((10,10), server.name)
+    draw.text((300,10), str(datetime.now()))
+    img.save(response, 'png')
+
+    return response

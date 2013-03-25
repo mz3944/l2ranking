@@ -156,7 +156,10 @@ LOGGING = {
     }
 }
 
-# Vote Interval
+# Dynamic Banner Lifetime (in seconds)
+BANNER_LIFETIME = 10
+
+# Vote Interval (in minutes)
 # How many minutes must pass before another vote can be made from same IP address.
 VOTE_INTERVAL = 5
 

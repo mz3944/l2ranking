@@ -18,7 +18,7 @@ class Server(db_models.Model):
     description = db_models.TextField(max_length=250)
     category = db_models.ForeignKey(Category)
     website = db_models.URLField(max_length=80)
-    banner = db_models.ImageField(upload_to='banners')
+    banner = db_models.ImageField(upload_to='banners', blank=True)
 
     # Extra Info
     exp_rate = db_models.PositiveSmallIntegerField(default=1)

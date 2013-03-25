@@ -5,4 +5,14 @@
 {% block content %}
     <h1>{{ server.name }}</h1>
     <p>{{ server.description }}</p>
+    <div id="reviews">
+        {% if reviews %}
+            {% for review in reviews %}
+                <h3><strong>{{ review.user }}</strong> rated <strong>{{ server.name }}</strong> with <strong>{{ review.rating }}</strong> points ({{ review.create_date }}).</h3>
+                <p>{{ review.body }}</p>
+            {% endfor %}
+        {% else %}
+            <p>No reviews.</p>
+        {% endif %}
+    </div>
 {% endblock %}

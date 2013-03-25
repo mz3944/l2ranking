@@ -1,11 +1,10 @@
-from datetime import datetime
 import decimal
 
-from django.dispatch import receiver
-from django.db.models.signals import post_save, post_delete
-
 from django.contrib.auth import models as auth_models
+from django.dispatch import receiver
 from django.db import models as db_models
+from django.db.models.signals import post_save, post_delete
+from django.utils import timezone
 
 class Category(db_models.Model):
     slug = db_models.SlugField(max_length=80, primary_key=True)
@@ -40,8 +39,8 @@ class Server(db_models.Model):
 
     # Misc
     user = db_models.ForeignKey(auth_models.User)
-    create_date = db_models.DateTimeField(default=datetime.now, editable=False)
-    modify_date = db_models.DateTimeField(default=datetime.now, editable=False)
+    create_date = db_models.DateTimeField(default=timezone.now, editable=False)
+    modify_date = db_models.DateTimeField(default=timezone.now, editable=False)
 
     def add_vote(self):
         self.vote_count += 1
@@ -56,7 +55,7 @@ class Vote(db_models.Model):
     ip_address = db_models.IPAddressField()
 
     # Misc
-    create_date = db_models.DateTimeField(default=datetime.now, editable=False)
+    create_date = db_models.DateTimeField(default=timezone.now, editable=False)
 
     def __unicode__(self):
         return '%(server_name)s (%(ip_address)s) @ %(create_date)s' % {
@@ -66,17 +65,30 @@ class Vote(db_models.Model):
         }
 
 class Review(db_models.Model):
+    RATE_CHOICES = (
+        (1, u'Poor'),
+        (2, u'Fair'),
+        (3, u'Good'),
+        (4, u'Very Good'),
+        (5, u'Excellent'),
+    )
+
     body = db_models.TextField(max_length=500)
-    rating = db_models.PositiveSmallIntegerField(default=5)
+    rating = db_models.PositiveSmallIntegerField(default=5, choices=RATE_CHOICES)
     server = db_models.ForeignKey(Server)
 
     # Misc
     user = db_models.ForeignKey(auth_models.User)
-    create_date = db_models.DateTimeField(default=datetime.now, editable=False)
-    modify_date = db_models.DateTimeField(default=datetime.now, editable=False)
+    create_date = db_models.DateTimeField(default=timezone.now, editable=False)
+    modify_date = db_models.DateTimeField(default=timezone.now, editable=False)
 
     def __unicode__(self):
-        return self.server.name
+        return '%(server)s reviewed by %(user)s (%(user_rating)s/%(overall_rating)s)' % {
+            'server': self.server.name,
+            'user': self.user.username,
+            'user_rating': self.rating,
+            'overall_rating': self.server.rating,
+        }
 
 class News(db_models.Model):
     title = db_models.CharField(max_length=80)
@@ -84,8 +96,8 @@ class News(db_models.Model):
     excerpt = db_models.TextField(max_length=200)
 
     # Misc
-    create_date = db_models.DateTimeField(default=datetime.now, editable=False)
-    modify_date = db_models.DateTimeField(default=datetime.now, editable=False)
+    create_date = db_models.DateTimeField(default=timezone.now, editable=False)
+    modify_date = db_models.DateTimeField(default=timezone.now, editable=False)
 
     class Meta:
         verbose_name_plural = 'news'
@@ -96,7 +108,7 @@ class News(db_models.Model):
 # Update server rating
 @receiver(post_save, sender=Review)
 @receiver(post_delete, sender=Review)
-def test(sender, **kwargs):
+def update_server_rating(sender, **kwargs):
     obj = kwargs['instance']
     total_rating = 0
     reviews = Review.objects.filter(server=obj.server)

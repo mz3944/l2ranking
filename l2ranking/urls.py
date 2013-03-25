@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls import patterns, include, url
+from django.views.decorators.cache import cache_page
 
 from frontend import views as frontend_views
 
@@ -22,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^servers/(?P<page>[0-9]+)?$', frontend_views.ServerListView.as_view(), name='servers'),
     url(r'^server/(?P<pk>\d+)/$', frontend_views.ServerDetailView.as_view(), name='server'),
     url(r'^server/vote/(?P<pk>\d+)/$', frontend_views.ServerVoteView.as_view(), name='vote'),
+    url(r'^server/banner/(?P<pk>\d+)/$', 'frontend.views.dynamic_banner', name='dynamic_banner'),
     url(r'^category/(?P<pk>[a-z0-9\-]+)/(?P<page>[0-9]+)?$', frontend_views.CategoryDetailView.as_view(), name='category'),
     url(r'^search/$', frontend_views.SearchView.as_view(), name='search'),
 

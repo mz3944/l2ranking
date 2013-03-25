@@ -14,7 +14,11 @@ class VoteAdmin(admin.ModelAdmin):
 class NewsAdmin(admin.ModelAdmin):
     pass
 
+class ReviewAdmin(admin.ModelAdmin):
+    pass
+
 admin.site.register(frontend_models.Server, ServerAdmin)
 admin.site.register(frontend_models.Category, CategoryAdmin)
 admin.site.register(frontend_models.Vote, VoteAdmin)
 admin.site.register(frontend_models.News, NewsAdmin)
+admin.site.register(frontend_models.Review, ReviewAdmin)

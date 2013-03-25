@@ -38,6 +38,15 @@ class ServerDetailView(generic_views.DetailView):
     model = frontend_models.Server
     context_object_name = 'server'
 
+    def get_context_data(self, **kwargs):
+        context = super(ServerDetailView, self).get_context_data(**kwargs)
+
+        context.update({
+            'reviews': frontend_models.Review.objects.filter(server=self.object),
+        })
+
+        return context
+
 class ServerVoteView(generic_views.FormView):
     template_name = 'vote.html'
     form_class = frontend_forms.VoteForm
@@ -104,7 +113,6 @@ class NewsDetailView(generic_views.DetailView):
     context_object_name = 'news'
 
 # Dynamic Banner
-
 @cache_page(settings.BANNER_LIFETIME)
 def dynamic_banner(request, pk):
 

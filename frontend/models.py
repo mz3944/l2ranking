@@ -1,4 +1,8 @@
 from datetime import datetime
+import decimal
+
+from django.dispatch import receiver
+from django.db.models.signals import post_save, post_delete
 
 from django.contrib.auth import models as auth_models
 from django.db import models as db_models
@@ -32,6 +36,7 @@ class Server(db_models.Model):
     vote_count = db_models.PositiveIntegerField(default=0)
     in_stat = db_models.PositiveIntegerField(default=0)
     out_stat = db_models.PositiveIntegerField(default=0)
+    rating = db_models.DecimalField(default=0.0, max_digits=2, decimal_places=1)
 
     # Misc
     user = db_models.ForeignKey(auth_models.User)
@@ -61,11 +66,22 @@ class Vote(db_models.Model):
         }
 
 class Review(db_models.Model):
-    pass
+    body = db_models.TextField(max_length=500)
+    rating = db_models.PositiveSmallIntegerField(default=5)
+    server = db_models.ForeignKey(Server)
+
+    # Misc
+    user = db_models.ForeignKey(auth_models.User)
+    create_date = db_models.DateTimeField(default=datetime.now, editable=False)
+    modify_date = db_models.DateTimeField(default=datetime.now, editable=False)
+
+    def __unicode__(self):
+        return self.server.name
 
 class News(db_models.Model):
     title = db_models.CharField(max_length=80)
     body = db_models.TextField(max_length=1000)
+    excerpt = db_models.TextField(max_length=200)
 
     # Misc
     create_date = db_models.DateTimeField(default=datetime.now, editable=False)
@@ -76,3 +92,22 @@ class News(db_models.Model):
 
     def __unicode__(self):
         return self.title
+
+# Update server rating
+@receiver(post_save, sender=Review)
+@receiver(post_delete, sender=Review)
+def test(sender, **kwargs):
+    obj = kwargs['instance']
+    total_rating = 0
+    reviews = Review.objects.filter(server=obj.server)
+    for review in reviews:
+        total_rating += review.rating
+
+    # Avoid zero division
+    if reviews.count() > 0:
+        rating = round(decimal.Decimal(total_rating) / decimal.Decimal(reviews.count()), 1)
+    else:
+        rating = 0
+
+    obj.server.rating = rating
+    obj.server.save()

@@ -6,4 +6,5 @@
     {% endif %}
     <h3><a href="{% url 'server' server.id %}">{{ server.name }}</a> (Votes: {{ server.vote_count }})</h3>
     <p>{{ server.description }}</p>
+    <p>Rating: {{ server.rating }}</p>
 </div>

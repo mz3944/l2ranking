@@ -4,12 +4,19 @@
 
 {% block content %}
     <h1>{{ server.name }}</h1>
+    <p>
+        <a href="{% url 'vote' server.id %}" class="btn">Vote</a>
+        <a href="{{ server.website }}" target="_blank" class="btn">Visit Website</a>
+    </p>
     <p>{{ server.description }}</p>
     <div id="reviews">
         {% if reviews %}
+            <h2>Reviews</h2>
             {% for review in reviews %}
-                <h3><strong>{{ review.user }}</strong> rated <strong>{{ server.name }}</strong> with <strong>{{ review.rating }}</strong> points ({{ review.create_date }}).</h3>
-                <p>{{ review.body }}</p>
+                <div class="well well-small">
+                    <p><small><strong>{{ review.user }}</strong> rated <strong>{{ server.name }}</strong> with <strong>{{ review.rating }}</strong> points <strong>{{ review.create_date|timesince }}</strong> ago</small></p>
+                    <p>{{ review.body }}</p>
+                </div>
             {% endfor %}
         {% else %}
             <p>No reviews.</p>

@@ -3,10 +3,12 @@
 {% block title %}News{% endblock %}
 
 {% block content %}
+    <h1>News</h1>
     {% if news_list %}
         {% for news in news_list %}
             <div class="well well-small">
-                <h1><a href="{% url 'news_detail' news.id %}">{{ news.title }}</a></h1>
+                <h3><a href="{% url 'news_detail' news.id %}">{{ news.title }}</a></h3>
+                <p><small>Posted <strong>{{ news.create_date|timesince }}</strong> ago</small></p>
                 <p>{{ news.excerpt }}</p>
             </div>
         {% endfor %}

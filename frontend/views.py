@@ -120,6 +120,9 @@ class NewsListView(generic_views.ListView):
     model = frontend_models.News
     context_object_name = 'news_list'
 
+    def get_queryset(self):
+        return self.model.objects.all().order_by('-create_date')
+
 class NewsDetailView(generic_views.DetailView):
     template_name = 'news_detail.html'
     model = frontend_models.News

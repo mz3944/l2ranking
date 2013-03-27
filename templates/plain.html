@@ -21,7 +21,7 @@
                     </ul>
                     <form class="navbar-form pull-right" action="{% url 'login' %}" method="post">
                         {% csrf_token %}
-                        <input class="span2" type="text" placeholder="Email">
+                        <input class="span2" type="text" placeholder="Username">
                         <input class="span2" type="password" placeholder="Password">
                         <button type="submit" class="btn">Sign in</button>
                         <a class="btn" href="">Register</a>

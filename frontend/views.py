@@ -48,6 +48,18 @@ class ServerDetailView(generic_views.DetailView):
 
         return context
 
+class ReviewCreateView(generic_views.CreateView):
+    template_name = 'review_create.html'
+    form_class = frontend_forms.ReviewForm
+
+    def form_valid(self, form):
+        server = get_object_or_404(frontend_models.Server, pk=self.kwargs.get('pk'))
+        obj = form.save(commit=False)
+        obj.server = server
+        obj.user = self.request.user
+        obj.save()
+        return redirect('server', pk=server.id)
+
 class ServerVoteView(generic_views.FormView):
     template_name = 'vote.html'
     form_class = frontend_forms.VoteForm
@@ -123,8 +135,8 @@ def dynamic_banner(request, pk):
     size = (468, 60)
     img = Image.new('RGBA', size, '#000000')
     draw = ImageDraw.Draw(img)
-    draw.text((10,10), server.name)
-    draw.text((300,10), str(timezone.now()))
+    draw.text((10, 10), server.name)
+    draw.text((300, 10), str(timezone.now()))
     img.save(response, 'png')
 
     return response

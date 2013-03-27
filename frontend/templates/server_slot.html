@@ -4,7 +4,7 @@
     {% else %}
         <img src="{% url 'dynamic_banner' server.id %}" alt="{{ server.name }}" title="{{ server.name }}" width="468" height="60" />
     {% endif %}
-    <h3><a href="{% url 'server' server.id %}">{{ server.name }}</a> (Votes: {{ server.vote_count }})</h3>
+    <h3><a href="{% url 'server' server.id %}">{{ server.name }}</a></h3>
     <p>{{ server.description }}</p>
     <p>Rating: {{ server.rating }}</p>
 </div>

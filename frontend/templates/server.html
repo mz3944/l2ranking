@@ -4,6 +4,10 @@
 
 {% block content %}
     <h1>{{ server.name }}</h1>
+    <p>
+        <a href="{% url 'vote' server.id %}" class="btn">Vote</a>
+        <a href="{{ server.website }}" target="_blank" class="btn">Visit Website</a>
+    </p>
     <p>{{ server.description }}</p>
     <div id="reviews">
         {% if reviews %}

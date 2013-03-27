@@ -5,7 +5,7 @@
 {% block content %}
     {% if news_list %}
         {% for news in news_list %}
-            <div>
+            <div class="well well-small">
                 <h1><a href="{% url 'news_detail' news.id %}">{{ news.title }}</a></h1>
                 <p>{{ news.excerpt }}</p>
             </div>

@@ -38,7 +38,4 @@ urlpatterns = patterns('',
 
     # Media file serve path
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-
-
-    url(r'^design/$', frontend_views.DesignView.as_view(), name='design'),
 )

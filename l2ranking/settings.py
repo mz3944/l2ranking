@@ -125,6 +125,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'frontend',
     'captcha',
+    'servercp',
 )
 
 # A sample logging configuration. The only tangible logging

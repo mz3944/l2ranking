@@ -1,0 +1,14 @@
+{% extends 'plain.html' %}
+
+{% block title %}Update Server{% endblock %}
+
+{% block content %}
+    <h1>Update Server</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Update"/>
+        <a href="{% url 'servercp:servers' %}" class="btn btn-danger">Cancel</a>
+    </form>
+
+{% endblock %}

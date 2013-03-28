@@ -3,6 +3,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
 
 from frontend import views as frontend_views
+from servercp import views as servercp_views
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -38,4 +39,7 @@ urlpatterns = patterns('',
 
     # Media file serve path
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+
+    # User's server control panel
+    url(r'^user/server/', include('servercp.urls', namespace='servercp')),
 )

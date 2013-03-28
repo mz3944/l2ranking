@@ -1,0 +1,22 @@
+{% extends 'plain.html' %}
+
+{% block title %}Delete Server{% endblock %}
+
+{% block content %}
+    <h1>Delete Server</h1>
+    <ul class="breadcrumb">
+        <li><a href="{% url 'servercp:servers' %}">My Servers</a> <span class="divider">/</span></li>
+        <li><a href="{% url 'servercp:info' server.pk %}">{{ server.name }}</a> <span class="divider">/</span></li>
+        <li class="active">Delete</li>
+    </ul>
+    <div class="alert alert-block">
+        <h4>Warning!</h4>
+        Are you sure you want to delete <strong>{{ server.name }}</strong> server? This action can not be reversed.
+    </div>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Delete" class="btn btn-large btn-primary" />
+        <a href="{% url 'servercp:servers' %}" class="btn btn-large btn-danger">Cancel</a>
+    </form>
+{% endblock %}

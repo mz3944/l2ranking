@@ -1,0 +1,16 @@
+{% extends 'plain.html' %}
+
+{% block title %}Vote for {{ server.name }}{% endblock %}
+
+{% block content %}
+    <h1>Vote for {{ server.name }}</h1>
+    <ul class="breadcrumb">
+        <li><a href="{% url 'server' server.pk %}">{{ server.name }}</a> <span class="divider">/</span></li>
+        <li class="active">Vote</li>
+    </ul>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Vote" class="btn btn-large btn-primary" />
+    </form>
+{% endblock %}

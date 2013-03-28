@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     'frontend',
     'captcha',
     'servercp',
+    'usercp',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -170,3 +171,6 @@ SERVERS_PER_PAGE = 2
 # ReCaptcha
 RECAPTCHA_PUBLIC_KEY = '6LeWXsQSAAAAAKN1kBou2ZFBTEOI3qWNU-zp9voF'
 RECAPTCHA_PRIVATE_KEY = '6LeWXsQSAAAAAPwFJO1vJe8Zw0i-ypNxzQ0F0uxl'
+
+# Auth Config
+LOGIN_REDIRECT_URL = '/'

@@ -1,6 +1,7 @@
-import Image, ImageDraw, ImageFont
-
 from datetime import timedelta
+
+import Image
+import ImageDraw
 from django.utils import timezone
 from django.conf import settings
 from django.http import HttpResponse
@@ -11,8 +12,13 @@ from django.views.decorators.cache import cache_page
 from frontend import forms as frontend_forms
 from frontend import models as frontend_models
 
+
 class HomeView(generic_views.TemplateView):
-    template_name = 'home.html'
+    """
+    View display homepage.
+    """
+
+    template_name = 'frontend/home.html'
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
@@ -25,8 +31,13 @@ class HomeView(generic_views.TemplateView):
 
         return context
 
+
 class ServerListView(generic_views.ListView):
-    template_name = 'servers.html'
+    """
+    View display servers ordered by vote count.
+    """
+
+    template_name = 'frontend/servers.html'
     model = frontend_models.Server
     context_object_name = 'server_list'
     paginate_by = settings.SERVERS_PER_PAGE
@@ -34,8 +45,13 @@ class ServerListView(generic_views.ListView):
     def get_queryset(self):
         return self.model.objects.all().order_by('-vote_count')
 
+
 class ServerDetailView(generic_views.DetailView):
-    template_name = 'server.html'
+    """
+    View display information about specific server.
+    """
+
+    template_name = 'frontend/server.html'
     model = frontend_models.Server
     context_object_name = 'server'
 
@@ -48,8 +64,13 @@ class ServerDetailView(generic_views.DetailView):
 
         return context
 
+
 class ReviewCreateView(generic_views.CreateView):
-    template_name = 'review_create.html'
+    """
+    View allows logged in user to review specific server.
+    """
+
+    template_name = 'frontend/review_create.html'
     form_class = frontend_forms.ReviewForm
 
     def form_valid(self, form):
@@ -60,8 +81,13 @@ class ReviewCreateView(generic_views.CreateView):
         obj.save()
         return redirect('server', pk=server.id)
 
+
 class ServerVoteView(generic_views.FormView):
-    template_name = 'vote.html'
+    """
+    View allows user to vote for specific server.
+    """
+
+    template_name = 'frontend/vote.html'
     form_class = frontend_forms.VoteForm
 
     def get_context_data(self, **kwargs):
@@ -91,8 +117,13 @@ class ServerVoteView(generic_views.FormView):
 
         return redirect('servers')
 
+
 class CategoryDetailView(generic_views.ListView):
-    template_name = 'category.html'
+    """
+    View displays information about specific category and all server belonging to it.
+    """
+
+    template_name = 'frontend/category.html'
     model = frontend_models.Server
     context_object_name = 'server_list'
     paginate_by = settings.SERVERS_PER_PAGE
@@ -109,28 +140,44 @@ class CategoryDetailView(generic_views.ListView):
 
         return context
 
+
 class SearchView(generic_views.FormView):
-    template_name = 'search.html'
+    """
+    View allows user to search for servers by entering server specifications.
+    """
+
+    template_name = 'frontend/search.html'
     form_class = frontend_forms.SearchForm
 
-# News
 
 class NewsListView(generic_views.ListView):
-    template_name = 'news.html'
+    """
+    View displays news ordered by create date.
+    """
+
+    template_name = 'frontend/news.html'
     model = frontend_models.News
     context_object_name = 'news_list'
 
     def get_queryset(self):
         return self.model.objects.all().order_by('-create_date')
 
+
 class NewsDetailView(generic_views.DetailView):
-    template_name = 'news_detail.html'
+    """
+    View display news details.
+    """
+
+    template_name = 'frontend/news_detail.html'
     model = frontend_models.News
     context_object_name = 'news'
 
-# Dynamic Banner
+
 @cache_page(settings.BANNER_LIFETIME)
 def dynamic_banner(request, pk):
+    """
+    View creates and caches server banner.
+    """
 
     server = get_object_or_404(frontend_models.Server, pk=pk)
 

@@ -1,32 +1,32 @@
 {% extends 'plain.html' %}
 
-{% block title %}User's Servers{% endblock %}
+{% block title %}My Servers{% endblock %}
 
 {% block content %}
-    <h1>Server List</h1>
-    <p>You have {{ server_list.count }} server(s). <a href="{% url 'servercp:server_add' %}">Add Server</a></p>
-        {% if server_list %}
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Votes</th>
-                    <th></th>
-                </tr>
+    <h1>My Servers</h1>
+    <p>You have <strong>{{ server_list.count }} server(s)</strong>. <a href="{% url 'servercp:add' %}" class="btn btn-small btn-success"><i class="icon-plus icon-white"></i> Add Server</a></p>
+    {% if server_list %}
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Votes</th>
+                <th>Actions</th>
+            </tr>
             {% for server in server_list %}
                 <tr>
                     <td>{{ server.name }}</td>
                     <td>{{ server.category }}</td>
-                    <td>{{ server.votes }}</td>
+                    <td>{{ server.vote_count }}</td>
                     <td>
-                        <a href="{% url 'servercp:server_update' server.pk %}">Edit</a>
-                        <a href="{% url 'servercp:server_delete' server.pk %}">Delete</a>
-                        <a href="{% url 'servercp:server_stats' server.pk %}">Statistics</a>
+                        <a href="{% url 'servercp:update' server.pk %}" class="btn btn-small btn-warning"><i class="icon-edit icon-white"></i> Edit</a>
+                        <a href="{% url 'servercp:delete' server.pk %}" class="btn btn-small btn-danger"><i class="icon-remove icon-white"></i> Delete</a>
+                        <a href="{% url 'servercp:info' server.pk %}" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> Stats</a>
                     </td>
                 </tr>
             {% endfor %}
-            </table>
-            {% else %}
-                <p>No servers yet :(</p>
-            {% endif %}
+        </table>
+    {% else %}
+        <p>You have no servers.</p>
+    {% endif %}
 {% endblock %}

@@ -4,6 +4,10 @@
 
 {% block content %}
     <h1>{{ server.name }}</h1>
+    <ul class="breadcrumb">
+        <li><a href="{% url 'servers' %}">Servers</a> <span class="divider">/</span></li>
+        <li class="active">{{ server.name }}</li>
+    </ul>
     <p>
         <a href="{% url 'vote' server.id %}" class="btn">Vote</a>
         <a href="{{ server.website }}" target="_blank" class="btn">Visit Website</a>

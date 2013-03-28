@@ -1,0 +1,12 @@
+{% extends 'plain.html' %}
+
+{% block title %}Server Stats{% endblock %}
+
+{% block content %}
+    <h1>Server Stats</h1>
+    <ul class="breadcrumb">
+        <li><a href="{% url 'servercp:servers' %}">My Servers</a> <span class="divider">/</span></li>
+        <li class="active">{{ server.name }}</li>
+    </ul>
+    <p>TODO :)</p>
+{% endblock %}

@@ -22,7 +22,7 @@ L2Ranking
 ### User Panel
 
 * User Servers `/user/server/list/`
-* User Add Server `/user/server/add/<id>/`
+* User Add Server `/user/server/add/`
 * User Edit Server `/user/server/edit/<id>/`
 * User Delete Server `/user/server/delete/<id>/`
 * User Server Statistics `/user/server/statistics/<id>`

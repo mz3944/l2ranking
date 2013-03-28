@@ -1,10 +1,12 @@
 {% extends 'plain.html' %}
 
+{% block title %}L2 {{ category.name }} Private Servers{% endblock %}
+
 {% block content %}
-    <h1>Server List</h1>
+    <h1>L2 {{ category.name }} Private Servers</h1>
     {% if server_list %}
         {% for server in server_list %}
-            {% include 'server_slot.html' %}
+            {% include 'frontend/server_slot.html' %}
         {% endfor %}
     {% else %}
         <p>No servers.</p>
@@ -14,15 +16,15 @@
         <div class="pagination">
             <ul>
                 {% if page_obj.has_previous %}
-                    <li><a href="{% url 'servers' page_obj.previous_page_number %}">Previous</a></li>
+                    <li><a href="{% url 'category' category.slug page_obj.previous_page_number %}">Previous</a></li>
                 {% else %}
                     <li><span>Previous</span></li>
                 {% endif %}
                 {% for page in page_obj.paginator.page_range %}
-                    <li><a href="{% url 'servers' page %}">{{ page }}</a></li>
+                    <li><a href="{% url 'category' category.slug page %}">{{ page }}</a></li>
                 {% endfor %}
                 {% if page_obj.has_next %}
-                    <li><a href="{% url 'servers' page_obj.next_page_number %}">Next</a></li>
+                    <li><a href="{% url 'category' category.slug page_obj.next_page_number %}">Next</a></li>
                 {% else %}
                     <li><span>Next</span></li>
                 {% endif %}

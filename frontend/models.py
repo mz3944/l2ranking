@@ -1,12 +1,15 @@
-import decimal
-
 from django.contrib.auth import models as auth_models
-from django.dispatch import receiver
 from django.db import models as db_models
 from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 from django.utils import timezone
 
+
 class Category(db_models.Model):
+    """
+    Model represents server category.
+    """
+
     slug = db_models.SlugField(max_length=80, primary_key=True)
     name = db_models.CharField(max_length=80)
 
@@ -16,7 +19,12 @@ class Category(db_models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Server(db_models.Model):
+    """
+    Model represents servers.
+    """
+
     name = db_models.CharField(max_length=80)
     description = db_models.TextField(max_length=250)
     category = db_models.ForeignKey(Category)
@@ -42,6 +50,11 @@ class Server(db_models.Model):
     create_date = db_models.DateTimeField(default=timezone.now, editable=False)
     modify_date = db_models.DateTimeField(default=timezone.now, editable=False)
 
+    def is_owner(self, user_obj):
+        if self.user == user_obj:
+            return True
+        return False
+
     def add_vote(self):
         self.vote_count += 1
         self.save()
@@ -49,7 +62,12 @@ class Server(db_models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Vote(db_models.Model):
+    """
+    Model represents server votes.
+    """
+
     character = db_models.CharField(max_length=80)
     server = db_models.ForeignKey(Server)
     ip_address = db_models.IPAddressField()
@@ -64,7 +82,12 @@ class Vote(db_models.Model):
             'create_date': self.create_date,
         }
 
+
 class Review(db_models.Model):
+    """
+    Model represents server reviews.
+    """
+
     RATE_CHOICES = (
         (1, u'Poor'),
         (2, u'Fair'),
@@ -90,7 +113,12 @@ class Review(db_models.Model):
             'overall_rating': self.server.rating,
         }
 
+
 class News(db_models.Model):
+    """
+    Model represents news.
+    """
+
     title = db_models.CharField(max_length=80)
     body = db_models.TextField(max_length=1000)
     excerpt = db_models.TextField(max_length=200)
@@ -105,21 +133,17 @@ class News(db_models.Model):
     def __unicode__(self):
         return self.title
 
-# Update server rating
 @receiver(post_save, sender=Review)
 @receiver(post_delete, sender=Review)
 def update_server_rating(sender, **kwargs):
-    obj = kwargs['instance']
-    total_rating = 0
-    reviews = Review.objects.filter(server=obj.server)
-    for review in reviews:
-        total_rating += review.rating
+    """
+    Function updates server rating after review is created, updated or deleted.
+    """
 
-    # Avoid zero division
-    if reviews.count() > 0:
-        rating = round(decimal.Decimal(total_rating) / decimal.Decimal(reviews.count()), 1)
-    else:
-        rating = 0
+    obj = kwargs['instance']
+
+    ratings = [review.rating for review in Review.objects.filter(server=obj.server)]
+    rating = round(float(sum(ratings)) / len(ratings), 1) if len(ratings) > 0 else 0
 
     obj.server.rating = rating
     obj.server.save()

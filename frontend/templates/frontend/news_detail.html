@@ -4,5 +4,9 @@
 
 {% block content %}
     <h1>{{ news.title }}</h1>
+    <ul class="breadcrumb">
+        <li><a href="{% url 'news' %}">News</a> <span class="divider">/</span></li>
+        <li class="active">{{ news.title }}</li>
+    </ul>
     <p>{{ news.body|linebreaks }}</p>
 {% endblock %}

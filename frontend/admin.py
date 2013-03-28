@@ -2,17 +2,22 @@ from django.contrib import admin
 
 from frontend import models as frontend_models
 
+
 class ServerAdmin(admin.ModelAdmin):
     pass
+
 
 class CategoryAdmin(admin.ModelAdmin):
     pass
 
+
 class VoteAdmin(admin.ModelAdmin):
     pass
 
+
 class NewsAdmin(admin.ModelAdmin):
     pass
+
 
 class ReviewAdmin(admin.ModelAdmin):
     pass

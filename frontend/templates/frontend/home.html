@@ -8,7 +8,7 @@
             {% if new_servers %}
                 <div class="well well-small">
                     {% for server in new_servers %}
-                        <h3><a href="{% url 'server' server.id %}">{{ server.name }}</a></h3>
+                        <p><a href="{% url 'server' server.id %}">{{ server.name }}</a></p>
                     {% endfor %}
                 </div>
             {% else %}
@@ -21,7 +21,7 @@
             {% if top_servers %}
                 <div class="well well-small">
                     {% for server in top_servers %}
-                        <h3><a href="{% url 'server' server.id %}">{{ server.name }}</a></h3>
+                        <p><a href="{% url 'server' server.id %}">{{ server.name }}</a></p>
                     {% endfor %}
                 </div>
             {% else %}
@@ -35,7 +35,7 @@
     {% if latest_news %}
         <div class="well well-small">
             {% for news in latest_news %}
-                <h3><a href="{% url 'news_detail' news.id %}">{{ news.title }}</a></h3>
+                <p><a href="{% url 'news_detail' news.id %}">{{ news.title }}</a></p>
                 {% if forloop.first %}
                     <p>{{ news.body }}</p>
                 {% endif %}

@@ -25,7 +25,7 @@ L2Ranking
 * User Add Server `/user/server/add/`
 * User Edit Server `/user/server/edit/<id>/`
 * User Delete Server `/user/server/delete/<id>/`
-* User Server Statistics `/user/server/statistics/<id>`
+* User Server Statistics `/user/server/statistics/<id>/`
 
 ## Plugins
 

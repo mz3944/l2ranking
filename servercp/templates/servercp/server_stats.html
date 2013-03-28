@@ -1,0 +1,12 @@
+{% extends 'plain.html' %}
+
+{% block title %}Server stats{% endblock %}
+
+{% block content %}
+    <h1>Server stats</h1>
+    <form action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+    </form>
+
+{% endblock %}

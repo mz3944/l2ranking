@@ -1,0 +1,32 @@
+{% extends 'plain.html' %}
+
+{% block title %}User's Servers{% endblock %}
+
+{% block content %}
+    <h1>Server List</h1>
+    <p>You have {{ server_list.count }} server(s). <a href="{% url 'servercp:server_add' %}">Add Server</a></p>
+        {% if server_list %}
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Votes</th>
+                    <th></th>
+                </tr>
+            {% for server in server_list %}
+                <tr>
+                    <td>{{ server.name }}</td>
+                    <td>{{ server.category }}</td>
+                    <td>{{ server.votes }}</td>
+                    <td>
+                        <a href="{% url 'servercp:server_update' server.pk %}">Edit</a>
+                        <a href="{% url 'servercp:server_delete' server.pk %}">Delete</a>
+                        <a href="{% url 'servercp:server_stats' server.pk %}">Statistics</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+            {% else %}
+                <p>No servers yet :(</p>
+            {% endif %}
+{% endblock %}

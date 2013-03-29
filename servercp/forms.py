@@ -10,4 +10,4 @@ class ServerForm(forms.ModelForm):
 
     class Meta:
         model = frontend_models.Server
-        exclude = ('vote_count', 'in_stat', 'out_stat', 'rating', 'user')
+        exclude = ('vote_count', 'in_stat', 'out_stat', 'rating', 'user', 'last_rank')

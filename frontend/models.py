@@ -44,6 +44,7 @@ class Server(db_models.Model):
     in_stat = db_models.PositiveIntegerField(default=0)
     out_stat = db_models.PositiveIntegerField(default=0)
     rating = db_models.DecimalField(default=0.0, max_digits=2, decimal_places=1)
+    last_rank = db_models.IntegerField(default=0)
 
     # Misc
     user = db_models.ForeignKey(auth_models.User)

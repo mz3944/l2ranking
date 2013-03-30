@@ -134,6 +134,7 @@ class News(db_models.Model):
     def __unicode__(self):
         return self.title
 
+
 @receiver(post_save, sender=Review)
 @receiver(post_delete, sender=Review)
 def update_server_rating(sender, **kwargs):

@@ -9,7 +9,7 @@
         <li><a href="{% url 'servercp:info' server.pk %}">{{ server.name }}</a> <span class="divider">/</span></li>
         <li class="active">Update</li>
     </ul>
-    <form action="" method="post">
+    <form action="" enctype="multipart/form-data" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <hr />

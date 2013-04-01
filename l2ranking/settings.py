@@ -4,6 +4,14 @@ import os.path
 settings_dir = os.path.abspath(os.path.dirname(__file__))
 
 DEBUG = True
+
+if DEBUG:
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = 'your gmail user name'
+    EMAIL_HOST_PASSWORD = 'your gmail password'
+    EMAIL_PORT = 587
+
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -110,7 +118,9 @@ ROOT_URLCONF = 'l2ranking.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'l2ranking.wsgi.application'
 
-TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), '..', 'templates').replace('\\','/'),)
+TEMPLATE_DIRS = (
+    os.path.join(os.path.dirname(__file__), '..', 'templates').replace('\\','/'),
+    os.path.join(os.path.dirname(__file__), '..', 'usercp/templates/usercp').replace('\\','/'),)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -174,3 +184,8 @@ RECAPTCHA_PRIVATE_KEY = '6LeWXsQSAAAAAPwFJO1vJe8Zw0i-ypNxzQ0F0uxl'
 
 # Auth Config
 LOGIN_REDIRECT_URL = '/'
+
+
+
+
+

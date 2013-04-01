@@ -4,7 +4,6 @@
 
 {% block content %}
     <h1>Register</h1>
-    <hr />
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

@@ -162,6 +162,11 @@ LOGGING = {
 # Dynamic Banner Lifetime (in seconds)
 BANNER_LIFETIME = 10
 
+# Banner width, height and size.
+BANNER_WIDTH = 468  # px
+BANNER_HEIGHT = 60  # px
+BANNER_SIZE = 100  # kb
+
 # Vote Interval (in minutes)
 # How many minutes must pass before another vote can be made from same IP address.
 VOTE_INTERVAL = 5

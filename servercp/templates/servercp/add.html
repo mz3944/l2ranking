@@ -8,7 +8,7 @@
         <li><a href="{% url 'servercp:servers' %}">My Servers</a> <span class="divider">/</span></li>
         <li class="active">Add</li>
     </ul>
-    <form action="" method="post">
+    <form action="" enctype="multipart/form-data" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <hr />

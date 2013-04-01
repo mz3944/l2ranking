@@ -22,6 +22,7 @@
                     {% if user.is_authenticated %}
                         <div class="pull-right">
                             <a class="btn" href="{% url 'servercp:servers' %}">Server CP</a>
+                            <a class="btn" href="{% url 'usercp:account' %}">Account</a>
                             <a class="btn" href="{% url 'usercp:logout' %}">Logout</a>
                         </div>
                     {% else %}

@@ -33,4 +33,32 @@ urlpatterns = patterns('',
 
     # Media file serve path
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+
+
+
+  #  url(r'^password/$', 'django.contrib.auth.views.password_change', {'template_name': 'usercp/password_change.html'}, name='password'),
+    url(r'^password/$', 'django.contrib.auth.views.password_change_done', {'template_name': 'usercp/password_change_done.html'}),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   # url(r'^password/$', 'django.contrib.auth.views.password_change', {'password_change_done': 'usercp/templates/usercp/password_changed.html'}),
+  #  url(r'^password_reset/done/$','django.contrib.auth.views.password_reset_done', {'template_name': 'usercp/templates/usercp/password_reset_done.html'}),
+
 )

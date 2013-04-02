@@ -16,7 +16,7 @@
     <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Delete" class="btn btn-large btn-primary" />
+        <input type="submit" value="Delete" class="btn btn-large btn-primary"/>
         <a href="{% url 'servercp:servers' %}" class="btn btn-large btn-danger">Cancel</a>
     </form>
 {% endblock %}

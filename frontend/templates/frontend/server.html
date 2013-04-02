@@ -18,7 +18,12 @@
             <h2>Reviews</h2>
             {% for review in reviews %}
                 <div class="well well-small">
-                    <p><small><strong>{{ review.user }}</strong> rated <strong>{{ server.name }}</strong> with <strong>{{ review.rating }}</strong> points <strong>{{ review.create_date|timesince }}</strong> ago</small></p>
+                    <p>
+                        <small><strong>{{ review.user }}</strong> rated <strong>{{ server.name }}</strong> with
+                            <strong>{{ review.rating }}</strong> points
+                            <strong>{{ review.create_date|timesince }}</strong> ago
+                        </small>
+                    </p>
                     <p>{{ review.body }}</p>
                 </div>
             {% endfor %}

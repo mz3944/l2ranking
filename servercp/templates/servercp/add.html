@@ -11,8 +11,8 @@
     <form action="" enctype="multipart/form-data" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <hr />
-        <input type="submit" value="Add" class="btn btn-large btn-primary" />
+        <hr/>
+        <input type="submit" value="Add" class="btn btn-large btn-primary"/>
         <a href="{% url 'servercp:servers' %}" class="btn btn-large btn-danger">Cancel</a>
     </form>
 {% endblock %}

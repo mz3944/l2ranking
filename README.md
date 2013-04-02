@@ -21,11 +21,11 @@ L2Ranking
   
 ### User Panel
 
-* User Servers `/user/server/list/`
-* User Add Server `/user/server/add/`
-* User Edit Server `/user/server/edit/<id>/`
-* User Delete Server `/user/server/delete/<id>/`
-* User Server Statistics `/user/server/statistics/<id>`
+* User Servers `/servercp/`
+* User Add Server `/servercp/add/`
+* User Edit Server `/servercp/update/<id>/`
+* User Delete Server `/servercp/delete/<id>/`
+* User Server Statistics `/servercp/info/<id>/`
 
 ## Plugins
 

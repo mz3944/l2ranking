@@ -14,6 +14,7 @@ class Category(db_models.Model):
 
     slug = db_models.SlugField(max_length=80, primary_key=True)
     name = db_models.CharField(max_length=80)
+    banner = frontend_fields.BannerField(upload_to='banner/category')
 
     class Meta:
         verbose_name_plural = 'categories'
@@ -31,7 +32,7 @@ class Server(db_models.Model):
     description = db_models.TextField(max_length=250)
     category = db_models.ForeignKey(Category)
     website = db_models.URLField(max_length=80)
-    banner = frontend_fields.BannerField(upload_to='banners', blank=True)
+    banner = frontend_fields.BannerField(upload_to='banner/server', blank=True)
 
     # Extra Info
     exp_rate = db_models.PositiveSmallIntegerField(default=1)

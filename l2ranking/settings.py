@@ -118,9 +118,7 @@ ROOT_URLCONF = 'l2ranking.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'l2ranking.wsgi.application'
 
-TEMPLATE_DIRS = (
-    os.path.join(os.path.dirname(__file__), '..', 'templates').replace('\\','/'),
-    os.path.join(os.path.dirname(__file__), '..', 'usercp/templates/usercp').replace('\\','/'),)
+TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), '..', 'templates').replace('\\','/'),)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -129,14 +127,14 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
     'frontend',
     'captcha',
     'servercp',
     'usercp',
+    # Uncomment the next line to enable the admin:
+    'django.contrib.admin',
+    # Uncomment the next line to enable admin documentation:
+    # 'django.contrib.admindocs',
 )
 
 # A sample logging configuration. The only tangible logging

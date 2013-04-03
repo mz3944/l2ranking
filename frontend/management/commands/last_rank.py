@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from django.db import connection, transaction
 
 from frontend import models as frontend_models
 
@@ -14,5 +15,11 @@ class Command(BaseCommand):
             server.last_rank = i
             server.save()
             i += 1
+
+        """
+        cursor = connection.cursor()
+        cursor.execute("UPDATE ...")    # TODO
+        transaction.commit_unless_managed()
+        """
 
         self.stdout.write('Last rank updated for all servers.')

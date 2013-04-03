@@ -17,6 +17,8 @@ class VoteForm(forms.ModelForm):
 
 
 class ReviewForm(forms.ModelForm):
+    captcha = ReCaptchaField()
+
     class Meta:
         model = frontend_models.Review
         exclude = ('server', 'user',)

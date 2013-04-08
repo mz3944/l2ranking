@@ -5,7 +5,7 @@ settings_dir = os.path.abspath(os.path.dirname(__file__))
 
 DEBUG = True
 
-if DEBUG:
+if not DEBUG:
     EMAIL_USE_TLS = True
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_HOST_USER = 'your gmail user name'

@@ -5,6 +5,14 @@ import os.path
 settings_dir = os.path.abspath(os.path.dirname(__file__))
 
 DEBUG = True
+
+if not DEBUG:
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = 'your gmail user name'
+    EMAIL_HOST_PASSWORD = 'your gmail password'
+    EMAIL_PORT = 587
+
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -120,14 +128,14 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
     'frontend',
     'captcha',
     'servercp',
     'usercp',
+    # Uncomment the next line to enable the admin:
+    'django.contrib.admin',
+    # Uncomment the next line to enable admin documentation:
+    # 'django.contrib.admindocs',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -180,3 +188,8 @@ RECAPTCHA_PRIVATE_KEY = '6LeWXsQSAAAAAPwFJO1vJe8Zw0i-ypNxzQ0F0uxl'
 
 # Auth Config
 LOGIN_REDIRECT_URL = '/'
+
+
+
+
+

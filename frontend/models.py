@@ -4,6 +4,8 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.utils import timezone
 
+from frontend import fields as frontend_fields
+
 
 class Category(db_models.Model):
     """
@@ -12,6 +14,7 @@ class Category(db_models.Model):
 
     slug = db_models.SlugField(max_length=80, primary_key=True)
     name = db_models.CharField(max_length=80)
+    banner = frontend_fields.BannerField(upload_to='banner/category')
 
     class Meta:
         verbose_name_plural = 'categories'
@@ -29,7 +32,7 @@ class Server(db_models.Model):
     description = db_models.TextField(max_length=250)
     category = db_models.ForeignKey(Category)
     website = db_models.URLField(max_length=80)
-    banner = db_models.ImageField(upload_to='banners', blank=True)
+    banner = frontend_fields.BannerField(upload_to='banner/server', blank=True)
 
     # Extra Info
     exp_rate = db_models.PositiveSmallIntegerField(default=1)
@@ -133,6 +136,7 @@ class News(db_models.Model):
 
     def __unicode__(self):
         return self.title
+
 
 @receiver(post_save, sender=Review)
 @receiver(post_delete, sender=Review)

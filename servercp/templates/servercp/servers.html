@@ -4,7 +4,9 @@
 
 {% block content %}
     <h1>My Servers</h1>
-    <p>You have <strong>{{ server_list.count }} server(s)</strong>. <a href="{% url 'servercp:add' %}" class="btn btn-small btn-success"><i class="icon-plus icon-white"></i> Add Server</a></p>
+    <p>You have <strong>{{ server_list.count }} server(s)</strong>. <a href="{% url 'servercp:add' %}"
+                                                                       class="btn btn-small btn-success"><i
+            class="icon-plus icon-white"></i> Add Server</a></p>
     {% if server_list %}
         <table class="table table-striped">
             <tr>
@@ -19,9 +21,12 @@
                     <td>{{ server.category }}</td>
                     <td>{{ server.vote_count }}</td>
                     <td>
-                        <a href="{% url 'servercp:update' server.pk %}" class="btn btn-small btn-warning"><i class="icon-edit icon-white"></i> Edit</a>
-                        <a href="{% url 'servercp:delete' server.pk %}" class="btn btn-small btn-danger"><i class="icon-remove icon-white"></i> Delete</a>
-                        <a href="{% url 'servercp:info' server.pk %}" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> Stats</a>
+                        <a href="{% url 'servercp:update' server.pk %}" class="btn btn-small btn-warning"><i
+                                class="icon-edit icon-white"></i> Edit</a>
+                        <a href="{% url 'servercp:delete' server.pk %}" class="btn btn-small btn-danger"><i
+                                class="icon-remove icon-white"></i> Delete</a>
+                        <a href="{% url 'servercp:info' server.pk %}" class="btn btn-small btn-info"><i
+                                class="icon-info-sign icon-white"></i> Stats</a>
                     </td>
                 </tr>
             {% endfor %}

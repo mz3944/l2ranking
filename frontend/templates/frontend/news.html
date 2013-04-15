@@ -8,7 +8,10 @@
         {% for news in news_list %}
             <div class="well well-small">
                 <h3><a href="{% url 'news_detail' news.id %}">{{ news.title }}</a></h3>
-                <p><small>Posted <strong>{{ news.create_date|timesince }}</strong> ago</small></p>
+
+                <p>
+                    <small>Posted <strong>{{ news.create_date|timesince }}</strong> ago</small>
+                </p>
                 <p>{{ news.excerpt }}</p>
             </div>
         {% endfor %}

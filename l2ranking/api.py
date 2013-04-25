@@ -8,7 +8,6 @@ class UserResource(ModelResource):
     class Meta:
         queryset = User.objects.all()
         resource_name ='user'
-        #fields = ['username','first_name','last_name','is_active']
         excludes = ['password','email','is_staff','is_supervisor']
 
 class CategoryResource(ModelResource):
@@ -43,7 +42,7 @@ class ServerResource(ModelResource):
 class TopFiveResource(ModelResource):
     class Meta:
         queryset = Server.objects.all().order_by('-vote_count')[:5]
-        resourceName = 'top_five'
+        resource_name = 'top_five'
 
 
 class LatestFiveResource(ModelResource):

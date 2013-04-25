@@ -5,6 +5,18 @@ from django.contrib import admin
 
 from frontend import views as frontend_views
 
+from django.conf.urls.defaults import *
+from l2ranking.api import CategoryResource
+from l2ranking.api import NewsResource
+from l2ranking.api import ReviewResource
+from l2ranking.api import ServerResource
+from l2ranking.api import VoteResource
+
+category_resource = CategoryResource()
+news_resource = NewsResource()
+review_resource = ReviewResource()
+server_resource = ServerResource()
+vote_resource= VoteResource()
 
 admin.autodiscover()
 
@@ -37,4 +49,9 @@ urlpatterns = patterns('',
                        # Media file serve path
                        url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
                            {'document_root': settings.MEDIA_ROOT}),
+                        (r'^api/', include(category_resource.urls)),
+                        (r'^api/', include(news_resource.urls)),
+                        (r'^api/', include(review_resource.urls)),
+                        (r'^api/', include(server_resource.urls)),
+                        (r'^api/', include(vote_resource.urls)),
 )

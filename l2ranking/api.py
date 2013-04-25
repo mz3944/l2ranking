@@ -1,10 +1,15 @@
 #l2ranking/l2ranking/api.py
-from tastypie.resources import ModelResource
-from frontend.models import Category
-from frontend.models import News
-from frontend.models import Review
-from frontend.models import Server
-from frontend.models import Vote
+from django.contrib.auth.models import User
+from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
+from tastypie import fields
+from frontend.models import Category, News, Review, Server
+
+class UserResource(ModelResource):
+    class Meta:
+        queryset = User.objects.all()
+        resource_name ='user'
+        #fields = ['username','first_name','last_name','is_active']
+        excludes = ['password','email','is_staff','is_supervisor']
 
 class CategoryResource(ModelResource):
     class Meta:
@@ -17,16 +22,31 @@ class NewsResource(ModelResource):
         resource_name = 'news'
 
 class ReviewResource(ModelResource):
+    user = fields.ForeignKey(UserResource, 'user')
     class Meta:
         queryset = Review.objects.all()
         resource_name = 'review'
 
 class ServerResource(ModelResource):
+    user = fields.ForeignKey(UserResource, 'user')
     class Meta:
         queryset = Server.objects.all()
         resource_name = 'server'
+        filtering = {
+            'name': ALL,
+            'description': ALL,
+            'banner': ALL,
+            'rating': ALL,
+            'last_rank': ALL,
+        }
 
-class VoteResource(ModelResource):
+class TopFiveResource(ModelResource):
     class Meta:
-        queryset=Vote.objects.all()
-        resource_name = 'vote'
+        queryset = Server.objects.all().order_by('-vote_count')[:5]
+        resourceName = 'top_five'
+
+
+class LatestFiveResource(ModelResource):
+    class Meta:
+        queryset = Server.objects.all().order_by('-create_date')[:5]
+        resource_name = 'latest_five'

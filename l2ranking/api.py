@@ -25,6 +25,9 @@ class ReviewResource(ModelResource):
     class Meta:
         queryset = Review.objects.all()
         resource_name = 'review'
+        filtering = {
+            "server": ('exact'),
+        }
 
 class ServerResource(ModelResource):
     user = fields.ForeignKey(UserResource, 'user')

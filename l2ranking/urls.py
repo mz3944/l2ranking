@@ -7,7 +7,7 @@ from frontend import views as frontend_views
 
 #from django.conf.urls import *
 from tastypie.api  import Api
-from l2ranking.api import CategoryResource, NewsResource, ReviewResource, ServerResource, TopFiveResource, LatestFiveResource
+from l2ranking.api import CategoryResource, NewsResource, ReviewResource, ServerResource, TopFiveResource, LatestFiveResource, UserResource
 
 v1_api = Api(api_name='v1')
 v1_api.register(CategoryResource())
@@ -16,6 +16,7 @@ v1_api.register(ReviewResource())
 v1_api.register(ServerResource())
 v1_api.register(TopFiveResource())
 v1_api.register(LatestFiveResource())
+v1_api.register(UserResource())
 
 admin.autodiscover()
 

@@ -9,6 +9,9 @@ class UserResource(ModelResource):
         queryset = User.objects.all()
         resource_name ='user'
         excludes = ['password','email','is_staff','is_supervisor']
+        filtering = {
+            'username': ALL
+        }
 
 class CategoryResource(ModelResource):
     class Meta:
@@ -26,7 +29,7 @@ class ReviewResource(ModelResource):
         queryset = Review.objects.all()
         resource_name = 'review'
         filtering = {
-            "server": ('exact'),
+            'id': ALL,
         }
 
 class ServerResource(ModelResource):
@@ -34,21 +37,21 @@ class ServerResource(ModelResource):
     class Meta:
         queryset = Server.objects.all()
         resource_name = 'server'
+        fields = ['name','id','description','banner','rating','last_rank']
         filtering = {
             'name': ALL,
-            'description': ALL,
-            'banner': ALL,
-            'rating': ALL,
-            'last_rank': ALL,
+            'id': ALL
         }
 
 class TopFiveResource(ModelResource):
     class Meta:
         queryset = Server.objects.all().order_by('-vote_count')[:5]
         resource_name = 'top_five'
+        fields = ['name']
 
 
 class LatestFiveResource(ModelResource):
     class Meta:
         queryset = Server.objects.all().order_by('-create_date')[:5]
         resource_name = 'latest_five'
+        fields = ['name']

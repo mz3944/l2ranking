@@ -6,15 +6,13 @@ from django.contrib import admin
 from frontend import views as frontend_views
 
 from tastypie.api  import Api
-from l2ranking import api as api
+from l2ranking import resources as api
 
 v1_api = Api(api_name='v1')
 v1_api.register(api.CategoryResource())
 v1_api.register(api.NewsResource())
 v1_api.register(api.ReviewResource())
 v1_api.register(api.ServerResource())
-v1_api.register(api.TopFiveResource())
-v1_api.register(api.LatestFiveResource())
 v1_api.register(api.UserResource())
 
 admin.autodiscover()

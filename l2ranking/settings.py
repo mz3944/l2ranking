@@ -188,8 +188,3 @@ RECAPTCHA_PRIVATE_KEY = '6LeWXsQSAAAAAPwFJO1vJe8Zw0i-ypNxzQ0F0uxl'
 
 # Auth Config
 LOGIN_REDIRECT_URL = '/'
-
-
-
-
-

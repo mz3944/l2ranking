@@ -3,9 +3,9 @@ from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
 from django.contrib import admin
 
-from frontend import views as frontend_views
-
 from tastypie.api  import Api
+
+from frontend import views as frontend_views
 from l2ranking import resources as api
 
 v1_api = Api(api_name='v1')

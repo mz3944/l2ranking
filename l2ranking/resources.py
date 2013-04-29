@@ -5,6 +5,7 @@ from tastypie import fields
 
 from frontend import models as frontend_models
 
+
 class UserResource(ModelResource):
     class Meta:
         queryset = User.objects.all()

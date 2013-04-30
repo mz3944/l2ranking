@@ -34,6 +34,6 @@
     {% if user.is_authenticated %}
         <p>Click <a href="{% url 'review_server' server.id %}">here</a> to review this server.</p>
     {% else %}
-        <p>You need to <a href="{% url 'login' %}">login</a> to review this server.</p>
+        <p>You need to <a href="{% url 'usercp:login' %}">login</a> to review this server.</p>
     {% endif %}
 {% endblock %}

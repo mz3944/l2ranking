@@ -3,10 +3,13 @@
 {% block title %}Server Stats{% endblock %}
 
 {% block content %}
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}servercp/js/linechart.js"></script>
+
     <h1>Server Stats</h1>
     <ul class="breadcrumb">
         <li><a href="{% url 'servercp:servers' %}">My Servers</a> <span class="divider">/</span></li>
         <li class="active">{{ server.name }}</li>
     </ul>
-    <p>TODO :)</p>
+    <div id="chart_div"></div>
 {% endblock %}

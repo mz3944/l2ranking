@@ -3,8 +3,17 @@ from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
 from django.contrib import admin
 
-from frontend import views as frontend_views
+from tastypie.api  import Api
 
+from frontend import views as frontend_views
+from l2ranking import resources as api
+
+v1_api = Api(api_name='v1')
+v1_api.register(api.CategoryResource())
+v1_api.register(api.NewsResource())
+v1_api.register(api.ReviewResource())
+v1_api.register(api.ServerResource())
+v1_api.register(api.UserResource())
 
 admin.autodiscover()
 
@@ -37,4 +46,7 @@ urlpatterns = patterns('',
                        # Media file serve path
                        url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
                            {'document_root': settings.MEDIA_ROOT}),
+                        (r'^api/', include(v1_api.urls)),
                        )
+
+

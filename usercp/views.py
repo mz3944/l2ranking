@@ -29,7 +29,8 @@ class AccountUpdate(generic_views.UpdateView):
 
     def get_success_url(self):
         if (self.request.POST):
-            messages.success(self.request, 'Account information successfully updated.')
+            messages.success(self.request,
+                             'Account information successfully updated.')
         return reverse('usercp:account')
 
     def get_object(self, queryset=None):

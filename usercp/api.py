@@ -18,37 +18,63 @@ class UserResource(ModelResource):
 
     def override_urls(self):
         return [
-            url(r"^(?P<resource_name>%s)/login%s$" %
-                (self._meta.resource_name, trailing_slash()), self.wrap_view('login'), name="api_login"),
+            url(r"^(?P<resource_name>%s)/login%s$" % (self._meta.resource_name,
+                trailing_slash()), self.wrap_view('login'), name="api_login"),
             url(r'^(?P<resource_name>%s)/logout%s$' %
-                (self._meta.resource_name, trailing_slash()), self.wrap_view('logout'), name='api_logout'),
+                (self._meta.resource_name, trailing_slash()),
+                self.wrap_view('logout'), name='api_logout'),
         ]
 
     def login(self, request, **kwargs):
         self.method_check(request, allowed=['post'])
-        data = self.deserialize(request, request.body, format=request.META.get('CONTENT_TYPE', 'application/json'))
-        user = authenticate(username=data.get('username'), password=data.get('password'))
+        data = self.deserialize(request, request.body, format=request.META.get(
+            'CONTENT_TYPE', 'application/json'))
+        user = authenticate(username=data.get('username'), password=data.get(
+            'password'))
         if user:
             if user.is_active:
                 login(request, user)
                 try:
                     key = ApiKey.objects.get(user=user)
                 except ApiKey.DoesNotExist:
-                    return self.create_response(request, {'success': False, 'reason': 'missing key'}, HttpForbidden)
-                return self.create_response(request, {'success': True, 'username': user.username, 'key': key.key})
+                    return self.create_response(
+                        request,
+                        {'success': False, 'reason': 'missing key'},
+                        HttpForbidden)
+                return self.create_response(
+                    request,
+                    {'success': True, 'username': user.username,
+                     'key': key.key})
             else:
-                return self.create_response(request, {'success': False, 'reason': 'account disabled'}, HttpForbidden)
+                return self.create_response(
+                    request,
+                    {'success': False, 'reason': 'account disabled'},
+                    HttpForbidden)
         else:
-            return self.create_response(request, {'success': False, 'reason': 'invalid login',
-                                            'skip_login_redir': True}, HttpUnauthorized,)
+            return self.create_response(
+                request, {'success': False, 'reason': 'invalid login',
+                          'skip_login_redir': True},
+                HttpUnauthorized,)
 
     def logout(self, request, **kwargs):
         self.method_check(request, allowed=['get'])
         if request.user and request.user.is_authenticated():
             logout(request)
-            return self.create_response(request, {'success': True})
+            return self.create_response(
+                request,
+                {'success': True})
         else:
-            return self.create_response(request, {'success': False}, HttpUnauthorized)
+            return self.create_response(
+                request,
+                {'success': False},
+                HttpUnauthorized)
 
+    def alter_list_data_to_serialize(self, request, data_dict):
+        if isinstance(data_dict, dict):
+            if 'meta' in data_dict:
+                if request.user and request.user.pk:
+                    data_dict['meta']['user_id'] = request.user.pk
+
+        return data_dict
 
 models.signals.post_save.connect(create_api_key, sender=User)

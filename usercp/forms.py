@@ -35,13 +35,9 @@ class RegisterForm(auth_forms.UserCreationForm):
     def clean_password1(self):
         password1 = self.cleaned_data.get('password1')
         if len(password1) < 8:
-<<<<<<< HEAD
             raise forms.ValidationError(
                 'Password must have at least 8 characters (it has %i).' %
                 len(password1))
-=======
-            raise forms.ValidationError('Password must have at least 8 characters (it has %i).' % len(password1))
->>>>>>> origRep/master
         return password1
 
     def save(self, commit=True):
@@ -57,18 +53,12 @@ class AccountUpdateForm(auth_forms.UserChangeForm):
     Extends build-in user change form.
     """
 
-<<<<<<< HEAD
     new_password1 = forms.CharField(
         label='Password', min_length=8, widget=forms.PasswordInput(),
         required=False)
     new_password2 = forms.CharField(
         label='Password conformation', min_length=8,
         widget=forms.PasswordInput(), required=False)
-=======
-    new_password1 = forms.CharField(label='Password', min_length=8, widget=forms.PasswordInput(), required=False)
-    new_password2 = forms.CharField(label='Password conformation', min_length=8, widget=forms.PasswordInput(),
-                                    required=False)
->>>>>>> origRep/master
 
     class Meta:
         model = User

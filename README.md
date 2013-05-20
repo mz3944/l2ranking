@@ -26,6 +26,10 @@ L2Ranking
 * User Edit Server `/servercp/update/<id>/`
 * User Delete Server `/servercp/delete/<id>/`
 * User Server Statistics `/servercp/info/<id>/`
+* User Registration '/usercp/register/'
+* User Login 'usercp/login/'
+* User Password Reset 'usercp/password/reset/'
+* User Account Details '/usercp/account/'
 
 ## Plugins
 
